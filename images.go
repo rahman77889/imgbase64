@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/base64"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"log"
 	"net/http"
 	"os"
@@ -46,7 +46,7 @@ func get(url string) ([]byte, string) {
 		log.Fatal("Error getting url.")
 	}
 	defer resp.Body.Close()
-	body, err := ioutil.ReadAll(resp.Body)
+	body, err := io.ReadAll(resp.Body)
 	ct := resp.Header.Get("Content-Type")
 
 	if resp.StatusCode == 200 && len(body) > 512 {
